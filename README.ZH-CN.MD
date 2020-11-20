@@ -20,12 +20,12 @@ services.UseGatewayBranch(hostContext.Configuration);
 配置 appsettings.json
 ``` json
   "Gateway": {
-    "TcpPort": 2012, // listener port
+    "TcpPort": 2012, // 监听端口
     "BrabchServer": [
       {
-        "Ip": "127.0.0.1", // branch server ip
-        "Port": 808, // branch server port
-        "NeedReply": true // if `true` branch port downstream data,else do nothing
+        "Ip": "127.0.0.1", // 分支服务器Ip
+        "Port": 808, // 分支服务器 port
+        "NeedReply": true // 如果为 `true` 该分支的下行数据将通过 `TcpPort` 下发至终端,否则将过滤掉
       },
       {
         "Ip": "127.0.0.1",
