@@ -1,0 +1,4 @@
+﻿[*.{cs,vb}]
+
+# IDE0040: 添加可访问性修饰符
+dotnet_style_require_accessibility_modifiers = never:silent

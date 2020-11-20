@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "GatewayBranch.Application": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
