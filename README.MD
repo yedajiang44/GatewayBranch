@@ -35,6 +35,9 @@ config appsettings.json
     ]
   }
 ```
+# run in docker
+- download `docker-compose.yml`
+- exec `docker-compose up -d`
 
 # Roadmap
 

@@ -36,6 +36,10 @@ services.UseGatewayBranch(hostContext.Configuration);
   }
 ```
 
+# 在docker中运行
+- 下载`docker-compose.yml`文件
+- 执行`docker-compose up -d`
+
 # Roadmap
 
 - 添加 udp 支持

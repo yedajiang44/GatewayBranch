@@ -1,0 +1,17 @@
+version: "3"
+networks:
+  gatewaybranch:
+    driver: bridge
+services:
+  mysql-master:
+    image: "yedajiang44/gatewaybranch:latest"
+    container_name: gatewaybranch
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - "./appsettings.json:/appsettings.json"
+    ports:
+      - "2012:2012"
+    networks:
+      - gatewaybranch
