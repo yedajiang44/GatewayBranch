@@ -1,6 +1,6 @@
 # GatewayBranch
 
-GatewayBranch 是一个基于DotNetty的轻量级网关转发工具
+GatewayBranch 是一个基于 DotNetty 的轻量级网关转发工具
 
 ![workflow](./imgs/workflow.png)
 
@@ -13,12 +13,14 @@ using GatewayBranch.Core;
 ```
 
 添加中间件
+
 ```c#
 services.UseGatewayBranch(hostContext.Configuration);
 ```
 
 配置 appsettings.json
-``` json
+
+```json
   "Gateway": {
     "TcpPort": 2012, // 监听端口
     "BrabchServer": [
@@ -36,11 +38,21 @@ services.UseGatewayBranch(hostContext.Configuration);
   }
 ```
 
-# 在docker中运行
-- 下载`docker-compose.yml`文件
-- 执行`docker-compose up -d`
+# 在 docker 中运行
 
-# Roadmap
+为方便使用，已创建 docker 镜像 [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang44/gatewaybranch)
+
+- 下载 `docker-compose.yml` 文件
+- 执行 `docker-compose up -d`
+
+## 注意
+
+> 如果要映射配置文件，则需要创建相应的文件
+
+- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json)
+- `nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)
+
+# 路线图
 
 - 添加 udp 支持
 - 添加连接管理器接口

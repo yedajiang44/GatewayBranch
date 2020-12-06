@@ -10,7 +10,7 @@ services:
     environment:
       TZ: Asia/Shanghai
     volumes:
-      - "./appsettings.json:/appsettings.json"
+      - "./data/logs:/app/logs"
     ports:
       - "2012:2012"
     networks:

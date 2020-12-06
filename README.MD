@@ -13,12 +13,14 @@ using GatewayBranch.Core;
 ```
 
 add service
+
 ```c#
 services.UseGatewayBranch(hostContext.Configuration);
 ```
 
 config appsettings.json
-``` json
+
+```json
   "Gateway": {
     "TcpPort": 2012, // listener port
     "BrabchServer": [
@@ -35,9 +37,20 @@ config appsettings.json
     ]
   }
 ```
-# run in docker
+
+# Run in docker
+
+the docker image [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang44/gatewaybranch)
+
 - download `docker-compose.yml`
 - exec `docker-compose up -d`
+
+## note
+
+> If you need to map configuration file, you need to create the corresponding file
+
+- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json)
+- `nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)
 
 # Roadmap
 
