@@ -4,8 +4,10 @@ using DotNetty.Transport.Channels;
 using DotNetty.Transport.Channels.Sockets;
 using GatewayBranch.Core.Codec;
 using GatewayBranch.Core.Handler;
+using GatewayBranch.Core.Server;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Net;
@@ -16,16 +18,17 @@ namespace GatewayBranch.Core.Client
     internal class TcpClient : ITcpClient
     {
         public string Id { get; set; } = "default";
-
+        readonly GatewayConfiguration configuration;
         readonly MultithreadEventLoopGroup eventLoopGroup;
         readonly Bootstrap bootstrap;
         readonly ITcpClientSessionManager sessionManager;
         readonly ILogger logger;
 
-        public TcpClient(IServiceProvider serviceProvider, ITcpClientSessionManager sessionManager, ILogger<TcpClient> logger)
+        public TcpClient(IServiceProvider serviceProvider, ITcpClientSessionManager sessionManager, ILogger<TcpClient> logger, IOptions<GatewayConfiguration> configuration)
         {
             this.logger = logger;
             this.sessionManager = sessionManager;
+            this.configuration = configuration.Value;
             eventLoopGroup = new MultithreadEventLoopGroup();
             bootstrap = new Bootstrap().Group(eventLoopGroup)
                 .Channel<TcpSocketChannel>()
@@ -35,7 +38,7 @@ namespace GatewayBranch.Core.Client
                 {
                     var scope = serviceProvider.CreateScope().ServiceProvider;
                     IChannelPipeline pipeline = channel.Pipeline;
-                    pipeline.AddLast(new IdleStateHandler(60 * 30, 60 * 30, 0));
+                    pipeline.AddLast(new IdleStateHandler(this.configuration.BrabchServerReaderIdleTimeSeconds, this.configuration.BrabchServerWriterIdleTimeSeconds, this.configuration.BrabchServerAllIdleTimeSeconds));
                     pipeline.AddLast(scope.GetRequiredService<TcpMetadataDecoder>());
                     pipeline.AddLast(scope.GetRequiredService<TcpMetadataEncoder>());
                     pipeline.AddLast(scope.GetRequiredService<TcpClientHandler>());

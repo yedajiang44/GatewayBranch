@@ -1,5 +1,4 @@
 ﻿using DotNetty.Buffers;
-using DotNetty.Codecs;
 using DotNetty.Handlers.Timeout;
 using DotNetty.Transport.Bootstrapping;
 using DotNetty.Transport.Channels;
@@ -66,7 +65,7 @@ namespace GatewayBranch.Core.Server
                {
                    var pipeline = channel.Pipeline;
                    using var scope = serviceProvider.CreateScope();
-                   pipeline.AddLast(new IdleStateHandler(60 * 30, 60*30, 0));
+                   pipeline.AddLast(new IdleStateHandler(configuration.ReaderIdleTimeSeconds, configuration.WriterIdleTimeSeconds, configuration.AllIdleTimeSeconds));
                    pipeline.AddLast(scope.ServiceProvider.GetRequiredService<TcpMetadataDecoder>());
                    pipeline.AddLast(scope.ServiceProvider.GetRequiredService<TcpMetadataEncoder>());
                    pipeline.AddLast(scope.ServiceProvider.GetRequiredService<BranchTcpServerHandler>());

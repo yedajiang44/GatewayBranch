@@ -28,11 +28,18 @@ namespace GatewayBranch.Core.Server
 
         public int EventLoopCount { get; set; } = Environment.ProcessorCount;
 
-        public int ReaderIdleTimeSeconds { get; set; } = 3600;
+        public int ReaderIdleTimeSeconds { get; set; } = 300;
 
-        public int WriterIdleTimeSeconds { get; set; } = 3600;
+        public int WriterIdleTimeSeconds { get; set; } = 300;
 
-        public int AllIdleTimeSeconds { get; set; } = 3600;
+        public int AllIdleTimeSeconds { get; set; }
+
+        public int BrabchServerReaderIdleTimeSeconds { get; set; } = 300;
+
+        public int BrabchServerWriterIdleTimeSeconds { get; set; } = 300;
+
+        public int BrabchServerAllIdleTimeSeconds { get; set; }
+
 
         public List<Server> BrabchServer { get; set; }
         internal class Server

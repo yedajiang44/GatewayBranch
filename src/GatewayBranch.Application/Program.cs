@@ -16,8 +16,7 @@ namespace GatewayBranch.Application
                 .UseGatewayBranch(hostContext.Configuration)
                 .AddLogging(logger =>
                 {
-                    logger.ClearProviders();
-                    logger.AddNLog(hostContext.Configuration);
+                    logger.ClearProviders().AddNLog(new NLogLoggingConfiguration(hostContext.Configuration.GetSection("NLog")));
                 });
             }).RunConsoleAsync();
     }
