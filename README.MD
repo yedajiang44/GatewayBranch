@@ -1,5 +1,7 @@
 # GatewayBranch
 
+## [中文文档](README.ZH-CN.MD)
+
 GatewayBranch is a lightweight gateway forwarding tool developed based on DotNet
 
 ![workflow](./imgs/workflow.png)
@@ -49,8 +51,8 @@ the docker image [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang4
 
 > If you need to map configuration file, you need to create the corresponding file
 
-- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json)
-- `nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)
+- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json) , see [GatewayConfiguration](./src/GatewayBranch.Core/Server/GatewayConfiguration.cs) for specific gateway configuration items
+- ~~`nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)~~
 
 # Roadmap
 

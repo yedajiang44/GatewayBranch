@@ -49,8 +49,8 @@ services.UseGatewayBranch(hostContext.Configuration);
 
 > 如果要映射配置文件，则需要创建相应的文件
 
-- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json)
-- `nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)
+- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json)，具体配置项请参见[GatewayConfiguration](./src/GatewayBranch.Core/Server/GatewayConfiguration.cs)
+- ~~`nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)~~
 
 # 路线图
 
