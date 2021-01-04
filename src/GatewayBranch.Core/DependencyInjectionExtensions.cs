@@ -10,7 +10,7 @@ namespace GatewayBranch.Core
 {
     public static class DependencyInjectionExtensions
     {
-        public static IServiceCollection UseGatewayBranch(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddGatewayBranch(this IServiceCollection services, IConfiguration configuration)
         {
             return services
                 .AddScoped<TcpMetadataDecoder>()

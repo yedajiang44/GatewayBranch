@@ -15,7 +15,7 @@ using GatewayBranch.Core;
 添加中间件
 
 ```c#
-services.UseGatewayBranch(hostContext.Configuration);
+services.AddGatewayBranch(hostContext.Configuration);
 ```
 
 配置 appsettings.json

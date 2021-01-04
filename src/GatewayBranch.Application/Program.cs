@@ -13,7 +13,7 @@ namespace GatewayBranch.Application
             .ConfigureServices((hostContext, services) =>
             {
                 services
-                .UseGatewayBranch(hostContext.Configuration)
+                .AddGatewayBranch(hostContext.Configuration)
                 .AddLogging(logger =>
                 {
                     logger.ClearProviders().AddNLog(new NLogLoggingConfiguration(hostContext.Configuration.GetSection("NLog")));

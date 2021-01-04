@@ -20,7 +20,7 @@ namespace GatewayBranch.Test
               .ConfigureServices((hostContext, services) =>
               {
                   services
-                  .UseGatewayBranch(hostContext.Configuration)
+                  .AddGatewayBranch(hostContext.Configuration)
                   .AddLogging(logger =>
                   {
                       logger.ClearProviders();

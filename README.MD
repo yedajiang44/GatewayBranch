@@ -17,7 +17,7 @@ using GatewayBranch.Core;
 add service
 
 ```c#
-services.UseGatewayBranch(hostContext.Configuration);
+services.AddGatewayBranch(hostContext.Configuration);
 ```
 
 config appsettings.json
