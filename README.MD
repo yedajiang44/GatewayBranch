@@ -5,6 +5,7 @@
 GatewayBranch is a lightweight gateway forwarding tool developed based on DotNet
 
 ![workflow](./imgs/workflow.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fyedajiang44%2FGatewayBranch.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fyedajiang44%2FGatewayBranch?ref=badge_shield)
 
 # How to use
 
@@ -58,3 +59,7 @@ the docker image [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang4
 
 - add udp
 - add session mananger webapi
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fyedajiang44%2FGatewayBranch.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fyedajiang44%2FGatewayBranch?ref=badge_large)
