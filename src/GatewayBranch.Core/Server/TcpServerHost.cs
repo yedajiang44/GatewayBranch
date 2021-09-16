@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -25,7 +26,6 @@ namespace GatewayBranch.Core.Server
         readonly GatewayConfiguration configuration;
         private IEventLoopGroup bossGroup;
         private IEventLoopGroup workerGroup;
-        private IChannel bootstrapChannel;
         private IByteBufferAllocator serverBufferAllocator;
 
         public TcpServerHost(IServiceProvider serviceProvider, ILogger<TcpServerHost> logger, IOptions<GatewayConfiguration> configuration)
@@ -35,10 +35,9 @@ namespace GatewayBranch.Core.Server
             this.configuration = configuration.Value;
         }
 
-        public async Task StartAsync(CancellationToken cancellationToken)
+        public Task StartAsync(CancellationToken cancellationToken)
         {
-            if (configuration.TcpPort <= 0) return;
-
+            if (configuration.TcpPort.Count == 0) return Task.CompletedTask;
             var bootstrap = new ServerBootstrap();
             serverBufferAllocator = new PooledByteBufferAllocator();
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
@@ -70,14 +69,13 @@ namespace GatewayBranch.Core.Server
                    pipeline.AddLast(scope.ServiceProvider.GetRequiredService<TcpMetadataEncoder>());
                    pipeline.AddLast(scope.ServiceProvider.GetRequiredService<BranchTcpServerHandler>());
                }));
-            logger.LogInformation($"TCP Server start at {IPAddress.Any}:{configuration.TcpPort}.");
-            bootstrapChannel = await bootstrap.BindAsync(configuration.TcpPort);
+            Task.WaitAll(configuration.TcpPort.Select(x => bootstrap.BindAsync(x).ContinueWith(_ => logger.LogInformation($"TCP Server start at {IPAddress.Any}:{x}."))).ToArray());
+            return Task.CompletedTask;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            if (configuration.TcpPort <= 0) return Task.CompletedTask;
-            bootstrapChannel.CloseAsync();
+            if (configuration.TcpPort.Count == 0) return Task.CompletedTask;
             var quietPeriod = configuration.QuietPeriodTimeSpan;
             var shutdownTimeout = configuration.ShutdownTimeoutTimeSpan;
             return Task.WhenAll(bossGroup.ShutdownGracefullyAsync(quietPeriod, shutdownTimeout), workerGroup.ShutdownGracefullyAsync(quietPeriod, shutdownTimeout));

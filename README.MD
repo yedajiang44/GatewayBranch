@@ -24,7 +24,7 @@ config appsettings.json
 
 ```json
   "Gateway": {
-    "TcpPort": 2012, // listener port
+    "TcpPort": [2012,2013], // listener ports list
     "BrabchServer": [
       {
         "Ip": "127.0.0.1", // branch server ip

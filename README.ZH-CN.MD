@@ -22,7 +22,7 @@ services.AddGatewayBranch(hostContext.Configuration);
 
 ```json
   "Gateway": {
-    "TcpPort": 2012, // 监听端口
+    "TcpPort": [2012,2013], // 监听端口集合
     "BrabchServer": [
       {
         "Ip": "127.0.0.1", // 分支服务器Ip

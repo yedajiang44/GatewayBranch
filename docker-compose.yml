@@ -11,17 +11,18 @@ services:
     privileged: true
     environment:
       TZ: Asia/Shanghai
-      Gateway__TcpPort: 80
+      Gateway__TcpPort__0: 80 # 被转发的端口
+      Gateway__TcpPort__1: 81
       Gateway__ReaderIdleTimeSeconds: 500
-      Gateway__ReaderIdleTimeSeconds: 500
+      Gateway__WriterIdleTimeSeconds: 0 # 默认300，单位 秒
       Gateway__BrabchServerReaderIdleTimeSeconds: 500
       Gateway__BrabchServerWriterIdleTimeSeconds: 500
-      Gateway__BrabchServer__0__Ip: 172.20.80.1 # 分流服务1的ip
-      Gateway__BrabchServer__0__Port: 809 #分流服务1的端口
-      Gateway__BrabchServer__0__NeedReply: 'true' #分流服务1需要下发回复
-      Gateway__BrabchServer__1__Ip: 172.20.80.1
-      Gateway__BrabchServer__1__Port: 810
-      Gateway__BrabchServer__1__NeedReply : 'true'
+      Gateway__BrabchServer__0__Ip: host.docker.internal # 分流服务1的ip
+      Gateway__BrabchServer__0__Port: 8008 #分流服务1的端口
+      Gateway__BrabchServer__0__NeedReply: "true" #分流服务1需要下发回复
+      Gateway__BrabchServer__1__Ip: host.docker.internal
+      Gateway__BrabchServer__1__Port: 8009
+      Gateway__BrabchServer__1__NeedReply: "true"
       NLog__targets__logconsole__type: Console
       NLog__rules__0__logger: "*"
       NLog__rules__0__minLevel: Info
@@ -38,5 +39,6 @@ services:
       - net.ipv4.tcp_timestamps=1 #TCP时间戳（会在TCP包头增加12个字节），以一种比重发超时更精确的方法（参考RFC 1323）来启用对RTT 的计算，为实现更好的性能应该启用这个选项。
     ports:
       - 808:80
+      - 809:81
     networks:
       - gatewaybranch

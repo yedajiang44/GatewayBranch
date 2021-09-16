@@ -10,33 +10,19 @@ namespace GatewayBranch.Core.Server
     internal class GatewayConfiguration
     {
         /// <summary>
-        /// Gets or sets the tcp port.
+        /// Gets or sets the tcp ports.
         /// </summary>
         /// <value>
-        /// The tcp port.
+        /// The tcp ports.
         /// </value>
-        public int TcpPort { get; set; } = 808;
+        public List<int> TcpPort { get; set; } = new List<int>();
         /// <summary>
-        /// Gets or sets the udp port.
+        /// Gets or sets the udp ports.
         /// </summary>
         /// <value>
-        /// The udp port.
+        /// The udp ports.
         /// </value>
-        public int UdpPort { get; set; } = 808;
-        /// <summary>
-        /// Gets or sets the web socket port.
-        /// </summary>
-        /// <value>
-        /// The web socket port.
-        /// </value>
-        public int WebSocketPort { get; set; } = 800;
-        /// <summary>
-        /// Gets or sets the http port.
-        /// </summary>
-        /// <value>
-        /// The http port.
-        /// </value>
-        public int HttpPort { get; set; } = 801;
+        public List<int> UdpPort { get; set; } = new List<int>();
         /// <summary>
         /// Gets or sets the use libuv.
         /// </summary>
