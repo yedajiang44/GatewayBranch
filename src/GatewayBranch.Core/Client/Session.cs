@@ -11,7 +11,7 @@ namespace GatewayBranch.Core.Client
         public IChannel Channel { get; set; }
         public string Id => Channel?.Id.AsShortText();
 
-        public string PhoneNumber { get; set; }
+        public string MatchId { get; set; }
 
         public void Dispose()
         {
@@ -24,7 +24,7 @@ namespace GatewayBranch.Core.Client
     public interface ISession : IDisposable
     {
         public string Id { get; }
-        public string PhoneNumber { get; set; }
+        public string MatchId { get; set; }
         Task Send(byte[] data);
     }
 }

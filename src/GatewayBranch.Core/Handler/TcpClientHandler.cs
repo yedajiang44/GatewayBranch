@@ -40,7 +40,7 @@ namespace GatewayBranch.Core.Handler
                     try
                     {
                         if (count == 100) break;
-                        var serverSessionId = x.GetSession(channelId)?.PhoneNumber;
+                        var serverSessionId = x.GetSession(channelId)?.MatchId;
                         if (string.IsNullOrEmpty(serverSessionId))
                             break;
                         await x.ConnectAsync(endPoint, serverSessionId);
@@ -60,7 +60,7 @@ namespace GatewayBranch.Core.Handler
         protected override void ChannelRead0(IChannelHandlerContext ctx, byte[] msg)
         {
             var channelId = ctx.Channel.Id.AsShortText();
-            Parallel.ForEach(tcpClientManager.GetTcpClients().Where(x => configuration.BrabchServer.Where(item => item.NeedReply).Select(item => item.IpAdress).Contains(x.Id)).Select(x => x.GetSession(channelId)?.PhoneNumber).Where(x => !string.IsNullOrEmpty(x)), x =>
+            Parallel.ForEach(tcpClientManager.GetTcpClients().Where(x => configuration.BrabchServer.Where(item => item.NeedReply).Select(item => item.IpAdress).Contains(x.Id)).Select(x => x.GetSession(channelId)?.MatchId).Where(x => !string.IsNullOrEmpty(x)), x =>
             {
                 serverSessionManager.Send(x, msg).ContinueWith(task =>
                 {

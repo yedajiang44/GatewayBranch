@@ -45,17 +45,17 @@ namespace GatewayBranch.Core.Client
                 }));
         }
 
-        public Task<ISession> ConnectAsync(string ip, int port, string phoneNumber) => ConnectAsync(new IPEndPoint(IPAddress.Parse(ip), port), phoneNumber);
-        public async Task<ISession> ConnectAsync(EndPoint endPoint, string phoneNumber)
+        public Task<ISession> ConnectAsync(string ip, int port, string matchId) => ConnectAsync(new IPEndPoint(IPAddress.Parse(ip), port), matchId);
+        public async Task<ISession> ConnectAsync(EndPoint endPoint, string matchId)
         {
             var channel = await bootstrap.ConnectAsync(endPoint);
-            ISession session = new Session { Channel = channel, PhoneNumber = phoneNumber };
+            ISession session = new Session { Channel = channel, MatchId = matchId };
             sessionManager.Add(session);
             return session;
         }
-        public Task CloseAsync(string phoneNumber)
+        public Task CloseAsync(string matchId)
         {
-            return Task.Run(() => sessionManager.RemoveByPhoneNumber(phoneNumber));
+            return Task.Run(() => sessionManager.RemoveByMatchId(matchId));
         }
         public Task CloseBySessionIdAsync(string sessionId)
         {
@@ -63,7 +63,7 @@ namespace GatewayBranch.Core.Client
             return Task.Run(() => sessionManager.RemoveById(sessionId));
         }
 
-        public Task Send(string phoneNumber, byte[] data) => sessionManager.GetSession(phoneNumber).Send(data);
+        public Task Send(string matchId, byte[] data) => sessionManager.GetSession(matchId).Send(data);
 
         public ISession GetSession(string sessionId) => sessionManager.GetSessionById(sessionId);
         public ISession GetSessionByServerSessionId(string sessionId) => sessionManager.GetSession(sessionId);
@@ -73,13 +73,13 @@ namespace GatewayBranch.Core.Client
     public interface ITcpClient
     {
         public string Id { get; set; }
-        Task<ISession> ConnectAsync(string ip, int port, string phoneNumber = null);
-        Task<ISession> ConnectAsync(EndPoint endPoint, string phoneNumber = null);
-        Task CloseAsync(string phoneNumber);
+        Task<ISession> ConnectAsync(string ip, int port, string matchId = null);
+        Task<ISession> ConnectAsync(EndPoint endPoint, string matchId = null);
+        Task CloseAsync(string matchId);
         Task CloseBySessionIdAsync(string sessionId);
         ISession GetSession(string sessionId);
         ISession GetSessionByServerSessionId(string sessionId);
         IEnumerable<ISession> Sesions();
-        Task Send(string phoneNumber, byte[] data);
+        Task Send(string matchId, byte[] data);
     }
 }

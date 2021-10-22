@@ -11,12 +11,12 @@ namespace GatewayBranch.Core.Client
         readonly ConcurrentDictionary<string, ISession> sessions = new ConcurrentDictionary<string, ISession>();
         public void Add(ISession session)
         {
-            sessions.AddOrUpdate(session.PhoneNumber, session, (key, value) => session);
+            sessions.AddOrUpdate(session.MatchId, session, (key, value) => session);
         }
 
-        public ISession GetSession(string phoneNumber)
+        public ISession GetSession(string matchId)
         {
-            sessions.TryGetValue(phoneNumber, out ISession session);
+            sessions.TryGetValue(matchId, out ISession session);
             return session;
         }
 
@@ -30,21 +30,21 @@ namespace GatewayBranch.Core.Client
         public void RemoveById(string sessionId)
         {
             var session = sessions.Values.FirstOrDefault(x => x.Id == sessionId);
-            sessions.TryRemove(session.PhoneNumber, out session);
+            sessions.TryRemove(session.MatchId, out session);
         }
 
-        public void RemoveByPhoneNumber(string phoneNumber)
+        public void RemoveByMatchId(string matchId)
         {
-            if (sessions.TryRemove(phoneNumber, out var session))
+            if (sessions.TryRemove(matchId, out var session))
                 session.Dispose();
         }
     }
     public interface ITcpClientSessionManager
     {
         void Add(ISession session);
-        void RemoveByPhoneNumber(string phoneNumber);
+        void RemoveByMatchId(string matchId);
         void RemoveById(string sessionId);
-        ISession GetSession(string phoneNumber);
+        ISession GetSession(string matchId);
         ISession GetSessionById(string sessionId);
         IEnumerable<ISession> GetSessions();
     }
