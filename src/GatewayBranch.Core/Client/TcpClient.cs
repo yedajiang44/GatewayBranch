@@ -44,8 +44,6 @@ namespace GatewayBranch.Core.Client
                     pipeline.AddLast(scope.GetRequiredService<TcpClientHandler>());
                 }));
         }
-
-        public Task<ISession> ConnectAsync(string ip, int port, string matchId) => ConnectAsync(new IPEndPoint(IPAddress.Parse(ip), port), matchId);
         public async Task<ISession> ConnectAsync(EndPoint endPoint, string matchId)
         {
             var channel = await bootstrap.ConnectAsync(endPoint);
@@ -73,7 +71,6 @@ namespace GatewayBranch.Core.Client
     public interface ITcpClient
     {
         public string Id { get; set; }
-        Task<ISession> ConnectAsync(string ip, int port, string matchId = null);
         Task<ISession> ConnectAsync(EndPoint endPoint, string matchId = null);
         Task CloseAsync(string matchId);
         Task CloseBySessionIdAsync(string sessionId);

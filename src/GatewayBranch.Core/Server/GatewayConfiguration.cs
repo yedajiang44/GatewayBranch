@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
 namespace GatewayBranch.Core.Server
 {
@@ -116,7 +118,13 @@ namespace GatewayBranch.Core.Server
             public string Ip { get; set; }
             public int Port { get; set; }
             public bool NeedReply { get; set; }
-            public string IpAdress => $"{Ip}:{Port}";
+            public string MatchId => $"{Ip}:{Port}";
+            private readonly Lazy<EndPoint> IpAdress;
+            public EndPoint Host => IpAdress.Value;
+            public Server()
+            {
+                IpAdress = new Lazy<EndPoint>(() => new IPEndPoint(Dns.GetHostEntry(Ip).AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork), Port));
+            }
         }
     }
 }

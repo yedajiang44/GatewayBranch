@@ -1,11 +1,11 @@
-﻿using DotNetty.Handlers.Timeout;
+﻿using System.Threading.Tasks;
+using DotNetty.Handlers.Timeout;
 using DotNetty.Transport.Channels;
 using GatewayBranch.Core.Client;
 using GatewayBranch.Core.Server;
 using GatewayBranch.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Threading.Tasks;
 
 namespace GatewayBranch.Core.Handler
 {
@@ -23,7 +23,7 @@ namespace GatewayBranch.Core.Handler
             configuration = options.Value;
             Parallel.ForEach(configuration.BrabchServer, x =>
             {
-                tcpClientFactory.CreateTcpClient(x.IpAdress);
+                tcpClientFactory.CreateTcpClient(x.MatchId);
             });
         }
 
@@ -34,8 +34,8 @@ namespace GatewayBranch.Core.Handler
             var channelId = context.Channel.Id.AsShortText();
             Parallel.ForEach(configuration.BrabchServer, x =>
             {
-                var tcpClient = tcpClientManager.GetTcpClient(x.IpAdress);
-                tcpClient.ConnectAsync(x.Ip, x.Port, channelId);
+                var tcpClient = tcpClientManager.GetTcpClient(x.MatchId);
+                tcpClient.ConnectAsync(x.Host, channelId);
             });
         }
 
@@ -44,7 +44,7 @@ namespace GatewayBranch.Core.Handler
             serverSessionManager.RemoveById(context.Channel.Id.AsShortText());
             Parallel.ForEach(configuration.BrabchServer, x =>
             {
-                var client = tcpClientManager.GetTcpClient(x.IpAdress);
+                var client = tcpClientManager.GetTcpClient(x.MatchId);
                 client.CloseAsync(context.Channel.Id.AsShortText());
             });
             base.ChannelInactive(context);
@@ -55,12 +55,12 @@ namespace GatewayBranch.Core.Handler
             var channelId = ctx.Channel.Id.AsShortText();
             Parallel.ForEach(configuration.BrabchServer, x =>
             {
-                var client = tcpClientManager.GetTcpClient(x.IpAdress);
+                var client = tcpClientManager.GetTcpClient(x.MatchId);
                 var session = client.GetSessionByServerSessionId(channelId);
                 if (session != default)
                     session.Send(msg);
                 else
-                    client.ConnectAsync(x.Ip, x.Port, channelId);
+                    client.ConnectAsync(x.Host, channelId);
             });
 
             if (logger.IsEnabled(LogLevel.Trace))

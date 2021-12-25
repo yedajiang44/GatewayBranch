@@ -60,7 +60,7 @@ namespace GatewayBranch.Core.Handler
         protected override void ChannelRead0(IChannelHandlerContext ctx, byte[] msg)
         {
             var channelId = ctx.Channel.Id.AsShortText();
-            Parallel.ForEach(tcpClientManager.GetTcpClients().Where(x => configuration.BrabchServer.Where(item => item.NeedReply).Select(item => item.IpAdress).Contains(x.Id)).Select(x => x.GetSession(channelId)?.MatchId).Where(x => !string.IsNullOrEmpty(x)), x =>
+            Parallel.ForEach(tcpClientManager.GetTcpClients().Where(x => configuration.BrabchServer.Where(item => item.NeedReply).Select(item => item.MatchId).Contains(x.Id)).Select(x => x.GetSession(channelId)?.MatchId).Where(x => !string.IsNullOrEmpty(x)), x =>
             {
                 serverSessionManager.Send(x, msg).ContinueWith(task =>
                 {
