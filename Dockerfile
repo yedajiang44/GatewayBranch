@@ -1,6 +1,6 @@
-FROM mcr.microsoft.com/dotnet/runtime:3.1
+FROM mcr.microsoft.com/dotnet/runtime:6.0
 WORKDIR /app
-COPY ./src/GatewayBranch.Application/bin/Release/netcoreapp3.1 . 
+COPY .output . 
 #设置端口
 EXPOSE 80
 ENTRYPOINT ["dotnet", "GatewayBranch.Application.dll"] 

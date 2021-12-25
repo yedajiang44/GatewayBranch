@@ -341,3 +341,4 @@ healthchecksdb
 
 .vscode/
 data/
+.output

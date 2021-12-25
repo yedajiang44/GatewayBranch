@@ -25,7 +25,7 @@ services.AddGatewayBranch(hostContext.Configuration);
     "TcpPort": [2012,2013], // 监听端口集合
     "BrabchServer": [
       {
-        "Ip": "127.0.0.1", // 分支服务器Ip
+        "Ip": "127.0.0.1", // 分支服务器Ip或域名
         "Port": 808, // 分支服务器 port
         "NeedReply": true // 如果为 `true` 该分支的下行数据将通过 `TcpPort` 下发至终端,否则将过滤掉
       },

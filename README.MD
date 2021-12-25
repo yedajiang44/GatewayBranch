@@ -27,7 +27,7 @@ config appsettings.json
     "TcpPort": [2012,2013], // listener ports list
     "BrabchServer": [
       {
-        "Ip": "127.0.0.1", // branch server ip
+        "Ip": "127.0.0.1", // branch server ip or domain
         "Port": 808, // branch server port
         "NeedReply": true // if `true` branch port downstream data,else do nothing
       },

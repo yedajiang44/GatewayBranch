@@ -1,5 +1,5 @@
 #!/bin/bash
-dotnet publish ./src/GatewayBranch.Application/GatewayBranch.Application.csproj -c Release
+dotnet publish ./src/GatewayBranch.Application/GatewayBranch.Application.csproj -c Release -o .output
 docker build --pull --rm --no-cache -f "Dockerfile" -t yedajiang44/gatewaybranch "."
 
 while true; do
