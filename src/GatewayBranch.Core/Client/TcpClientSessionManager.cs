@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace GatewayBranch.Core.Client
 {
     internal class TcpClientSessionManager : ITcpClientSessionManager
     {
-        readonly ConcurrentDictionary<string, ISession> sessions = new ConcurrentDictionary<string, ISession>();
+        private readonly ConcurrentDictionary<string, ISession> sessions = new ConcurrentDictionary<string, ISession>();
         public void Add(ISession session)
         {
-            sessions.AddOrUpdate(session.MatchId, session, (key, value) => session);
+            sessions.AddOrUpdate(session.MatchId, session, (_, __) => session);
         }
 
         public ISession GetSession(string matchId)

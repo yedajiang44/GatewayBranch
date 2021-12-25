@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 
@@ -123,7 +122,7 @@ namespace GatewayBranch.Core.Server
             public EndPoint Host => IpAdress.Value;
             public Server()
             {
-                IpAdress = new Lazy<EndPoint>(() => new IPEndPoint(Dns.GetHostEntry(Ip).AddressList.FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork), Port));
+                IpAdress = new Lazy<EndPoint>(() => new IPEndPoint(Array.Find(Dns.GetHostEntry(Ip).AddressList, x => x.AddressFamily == AddressFamily.InterNetwork), Port));
             }
         }
     }

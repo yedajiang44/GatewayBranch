@@ -7,10 +7,10 @@ namespace GatewayBranch.Core.Server
 {
     public class ServerSessionManager : IServerSessionManager
     {
-        readonly ConcurrentDictionary<string, ISession> sessions = new ConcurrentDictionary<string, ISession>();
+        private readonly ConcurrentDictionary<string, ISession> sessions = new ConcurrentDictionary<string, ISession>();
         public void Add(ISession session)
         {
-            sessions.AddOrUpdate(session.Id, session, (_key, _old) => session);
+            sessions.AddOrUpdate(session.Id, session, (_, __) => session);
         }
 
         public ISession GetSession(string sessionId)

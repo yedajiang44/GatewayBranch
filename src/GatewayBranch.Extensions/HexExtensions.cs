@@ -4,7 +4,7 @@ namespace GatewayBranch.Extensions
 {
     public static class HexExtensions
     {
-        readonly static char[] HexdumpTable;
+        private readonly static char[] HexdumpTable;
         static HexExtensions()
         {
             HexdumpTable = new char[1024];
@@ -21,7 +21,7 @@ namespace GatewayBranch.Extensions
             return DoHexDump(array, 0, array.Length);
         }
 
-        static string DoHexDump(byte[] array, int fromIndex, int length)
+        private static string DoHexDump(byte[] array, int fromIndex, int length)
         {
             if (length == 0)
             {

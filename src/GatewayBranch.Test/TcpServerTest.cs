@@ -1,22 +1,20 @@
-﻿using GatewayBranch.Core;
+﻿using System;
+using GatewayBranch.Core;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
-using System;
-using System.Configuration;
-using System.Threading;
 using Xunit;
 
 namespace GatewayBranch.Test
 {
     [Collection("Tcp Server Test")]
-    public class TcpServerTest : IDisposable
+    public class TcpServerTest
     {
-        readonly IHost host;
+        private readonly IHost host;
         public TcpServerTest()
         {
-            host = Host.CreateDefaultBuilder(new string[] { })
+            host = Host.CreateDefaultBuilder(Array.Empty<string>())
               .ConfigureServices((hostContext, services) =>
               {
                   services
@@ -34,7 +32,7 @@ namespace GatewayBranch.Test
         {
             //Thread.Sleep(1000 * 60 * 10);
         }
-        public void Dispose()
+        ~TcpServerTest()
         {
             host.StopAsync();
         }

@@ -4,7 +4,6 @@ using GatewayBranch.Core.Handler;
 using GatewayBranch.Core.Server;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace GatewayBranch.Core
 {

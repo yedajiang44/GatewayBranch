@@ -18,11 +18,11 @@ namespace GatewayBranch.Core.Client
     internal class TcpClient : ITcpClient
     {
         public string Id { get; set; } = "default";
-        readonly GatewayConfiguration configuration;
-        readonly MultithreadEventLoopGroup eventLoopGroup;
-        readonly Bootstrap bootstrap;
-        readonly ITcpClientSessionManager sessionManager;
-        readonly ILogger logger;
+        private readonly GatewayConfiguration configuration;
+        private readonly MultithreadEventLoopGroup eventLoopGroup;
+        private readonly Bootstrap bootstrap;
+        private readonly ITcpClientSessionManager sessionManager;
+        private readonly ILogger logger;
 
         public TcpClient(IServiceProvider serviceProvider, ITcpClientSessionManager sessionManager, ILogger<TcpClient> logger, IOptions<GatewayConfiguration> configuration)
         {

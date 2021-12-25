@@ -14,10 +14,10 @@ namespace GatewayBranch.Core.Handler
 {
     internal class TcpClientHandler : SimpleChannelInboundHandler<byte[]>
     {
-        readonly ILogger logger;
-        readonly GatewayConfiguration configuration;
-        readonly ITcpClientManager tcpClientManager;
-        readonly IServerSessionManager serverSessionManager;
+        private readonly ILogger logger;
+        private readonly GatewayConfiguration configuration;
+        private readonly ITcpClientManager tcpClientManager;
+        private readonly IServerSessionManager serverSessionManager;
 
         public TcpClientHandler(ILogger<TcpClientHandler> logger, ITcpClientManager tcpClientManager, IServerSessionManager serverSessionManager, IOptions<GatewayConfiguration> options)
         {
@@ -65,7 +65,7 @@ namespace GatewayBranch.Core.Handler
                 serverSessionManager.Send(x, msg).ContinueWith(task =>
                 {
                     if (logger.IsEnabled(LogLevel.Error))
-                        logger.LogError(task.Exception, $"下发数据发生异常");
+                        logger.LogError(task.Exception, "下发数据发生异常");
                     serverSessionManager.RemoveById(x);
                 }, TaskContinuationOptions.NotOnRanToCompletion);
             });
@@ -88,11 +88,6 @@ namespace GatewayBranch.Core.Handler
                     break;
             }
             base.UserEventTriggered(context, evt);
-        }
-
-        public override void ExceptionCaught(IChannelHandlerContext context, Exception exception)
-        {
-            base.ExceptionCaught(context, exception);
         }
     }
 }

@@ -11,20 +11,17 @@ namespace GatewayBranch.Core.Handler
 {
     internal class BranchTcpServerHandler : SimpleChannelInboundHandler<byte[]>
     {
-        readonly ILogger logger;
-        readonly ITcpClientManager tcpClientManager;
-        readonly GatewayConfiguration configuration;
-        readonly IServerSessionManager serverSessionManager;
+        private readonly ILogger logger;
+        private readonly ITcpClientManager tcpClientManager;
+        private readonly GatewayConfiguration configuration;
+        private readonly IServerSessionManager serverSessionManager;
         public BranchTcpServerHandler(ILogger<BranchTcpServerHandler> logger, IServerSessionManager serverSessionManager, ITcpClientFactory tcpClientFactory, ITcpClientManager tcpClientManager, IOptions<GatewayConfiguration> options)
         {
             this.logger = logger;
             this.tcpClientManager = tcpClientManager;
             this.serverSessionManager = serverSessionManager;
             configuration = options.Value;
-            Parallel.ForEach(configuration.BrabchServer, x =>
-            {
-                tcpClientFactory.CreateTcpClient(x.MatchId);
-            });
+            Parallel.ForEach(configuration.BrabchServer, x => tcpClientFactory.CreateTcpClient(x.MatchId));
         }
 
         public override void ChannelActive(IChannelHandlerContext context)

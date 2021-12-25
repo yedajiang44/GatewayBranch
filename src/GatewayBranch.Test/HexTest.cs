@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Linq;
 using GatewayBranch.Extensions;
-using Microsoft.Extensions.DependencyInjection;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,8 +8,8 @@ namespace GatewayBranch.Test
 {
     public class HexTest
     {
-        readonly byte[] data = Enumerable.Range(0, 1000).Select(x => (byte)x).ToArray();
-        readonly ITestOutputHelper outputHelper;
+        private readonly byte[] data = Enumerable.Range(0, 1000).Select(x => (byte)x).ToArray();
+        private readonly ITestOutputHelper outputHelper;
 
         public HexTest(ITestOutputHelper outputHelper)
         {
@@ -22,10 +21,7 @@ namespace GatewayBranch.Test
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Enumerable.Range(0, 10000).ToList().ForEach(x =>
-            {
-                string.Join(" ", data.Select(x => x.ToString("16").PadLeft(2, '0'))).ToUpperInvariant();
-            });
+            Enumerable.Range(0, 10000).ToList().ForEach(_ => string.Join(" ", data.Select(x => x.ToString("16").PadLeft(2, '0'))).ToUpperInvariant());
             stopwatch.Stop();
             outputHelper.WriteLine($"ºÄÊ±£º{stopwatch.ElapsedMilliseconds} ºÁÃë");
         }
@@ -35,7 +31,7 @@ namespace GatewayBranch.Test
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
-            Enumerable.Range(0, 10000).ToList().ForEach(x =>
+            Enumerable.Range(0, 10000).ToList().ForEach(_ =>
             {
                 var s = data.ToHexString();
             });

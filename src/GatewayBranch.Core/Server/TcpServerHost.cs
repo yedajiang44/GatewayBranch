@@ -21,9 +21,9 @@ namespace GatewayBranch.Core.Server
 {
     internal class TcpServerHost : IHostedService
     {
-        readonly IServiceProvider serviceProvider;
-        readonly ILogger logger;
-        readonly GatewayConfiguration configuration;
+        private readonly IServiceProvider serviceProvider;
+        private readonly ILogger logger;
+        private readonly GatewayConfiguration configuration;
         private IEventLoopGroup bossGroup;
         private IEventLoopGroup workerGroup;
         private IByteBufferAllocator serverBufferAllocator;

@@ -1,15 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GatewayBranch.Core.Client
 {
     internal class TcpClientFactory : ITcpClientFactory
     {
-        readonly IServiceProvider serviceProvider;
-        readonly ITcpClientManager tcpClientManager;
+        private readonly IServiceProvider serviceProvider;
+        private readonly ITcpClientManager tcpClientManager;
 
         public TcpClientFactory(IServiceProvider serviceProvider, ITcpClientManager tcpClientManager)
         {
