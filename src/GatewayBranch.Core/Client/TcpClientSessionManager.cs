@@ -28,7 +28,8 @@ namespace GatewayBranch.Core.Client
         public void RemoveById(string sessionId)
         {
             var session = sessions.Values.FirstOrDefault(x => x.Id == sessionId);
-            sessions.TryRemove(session.MatchId, out session);
+            if (session != default)
+                sessions.TryRemove(session.MatchId, out session);
         }
 
         public void RemoveByMatchId(string matchId)
@@ -37,7 +38,7 @@ namespace GatewayBranch.Core.Client
                 session.Dispose();
         }
     }
-    public interface ITcpClientSessionManager
+    internal interface ITcpClientSessionManager
     {
         void Add(ISession session);
         void RemoveByMatchId(string matchId);

@@ -1,6 +1,6 @@
-﻿using DotNetty.Transport.Channels;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using DotNetty.Transport.Channels;
 
 namespace GatewayBranch.Core.Client
 {
@@ -10,6 +10,11 @@ namespace GatewayBranch.Core.Client
         public string Id => Channel?.Id.AsShortText();
 
         public string MatchId { get; set; }
+
+        public Task CloseAsync()
+        {
+            return Channel.CloseAsync();
+        }
 
         public void Dispose()
         {
@@ -23,6 +28,7 @@ namespace GatewayBranch.Core.Client
     {
         public string Id { get; }
         public string MatchId { get; set; }
+        Task CloseAsync();
         Task Send(byte[] data);
     }
 }

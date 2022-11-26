@@ -1,6 +1,6 @@
-﻿using DotNetty.Transport.Channels;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using DotNetty.Transport.Channels;
 
 namespace GatewayBranch.Core.Server
 {
@@ -8,6 +8,11 @@ namespace GatewayBranch.Core.Server
     {
         public IChannel Channel { get; set; }
         public string Id => Channel?.Id.AsShortText();
+
+        public Task CloseAsync()
+        {
+            return Channel.CloseAsync();
+        }
 
         public void Dispose()
         {
@@ -21,6 +26,7 @@ namespace GatewayBranch.Core.Server
     {
         public string Id { get; }
         Task Send(byte[] data);
+        Task CloseAsync();
         public enum SessionStatus
         {
             Offline
