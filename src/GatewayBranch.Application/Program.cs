@@ -1,13 +1,23 @@
 ﻿using GatewayBranch.Core;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using NLog.Extensions.Logging;
 
-await Host.CreateDefaultBuilder(args)
-.ConfigureServices((hostContext, services) =>
-{
-    services
-    .AddGatewayBranch(hostContext.Configuration)
-    .AddLogging(logger => logger.ClearProviders().AddNLog(new NLogLoggingConfiguration(hostContext.Configuration.GetSection("NLog"))));
-}).RunConsoleAsync();
+var builder = WebApplication.CreateBuilder(args);
+builder.Services
+.AddEndpointsApiExplorer()
+.AddSwaggerGen(o => o.EnableAnnotations())
+.AddAuthorization()
+.AddGatewayBranch(builder.Configuration)
+.AddLogging(logger => logger.ClearProviders().AddNLog(new NLogLoggingConfiguration(builder.Configuration.GetSection("NLog"))))
+.AddControllers();
+
+var app = builder.Build();
+app.UseRouting()
+.UseSwagger()
+.UseSwaggerUI()
+.UseAuthentication()
+.UseAuthorization()
+.UseEndpoints(endpoints => endpoints.MapControllers());
+app.Run();
