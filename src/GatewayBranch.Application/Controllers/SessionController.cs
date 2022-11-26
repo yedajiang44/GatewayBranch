@@ -19,11 +19,6 @@ namespace GatewayBranch.Application.Controllers
             this.serverSessionManager = serverSessionManager;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet("{type}")]
         [SwaggerOperation("获取连接", "根据不同的操作类型获取对应的连接信息")]
         public IActionResult Sessions([SwaggerParameter("0: the sessions of server<br/>1: the sessions of branch")] OperateType type)
