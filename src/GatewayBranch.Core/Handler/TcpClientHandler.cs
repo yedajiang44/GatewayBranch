@@ -1,14 +1,14 @@
-﻿using DotNetty.Handlers.Timeout;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using DotNetty.Handlers.Timeout;
 using DotNetty.Transport.Channels;
 using GatewayBranch.Core.Client;
 using GatewayBranch.Core.Server;
 using GatewayBranch.Extensions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace GatewayBranch.Core.Handler
 {
@@ -39,7 +39,14 @@ namespace GatewayBranch.Core.Handler
                     count++;
                     try
                     {
-                        if (count == 100) break;
+                        if (count == 100)
+                        {
+                            if (logger.IsEnabled(LogLevel.Warning))
+                            {
+                                logger.LogWarning("已重试 {count} 次连接 {endPoint} 失败，即将取消重试", count, endPoint);
+                            }
+                            break;
+                        }
                         var serverSessionId = x.GetSession(channelId)?.MatchId;
                         if (string.IsNullOrEmpty(serverSessionId))
                             break;

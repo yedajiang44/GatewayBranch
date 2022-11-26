@@ -30,7 +30,7 @@ namespace GatewayBranch.Core.Server
         public void RemoveById(string sessionId)
         {
             if (sessions.TryRemove(sessionId, out var session))
-                session.Dispose();
+                session.CloseAsync();
         }
 
         public Task Send(string sessionId, byte[] data)

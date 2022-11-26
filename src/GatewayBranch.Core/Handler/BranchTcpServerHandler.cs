@@ -34,17 +34,15 @@ namespace GatewayBranch.Core.Handler
                 var tcpClient = tcpClientManager.GetTcpClient(x.MatchId);
                 tcpClient.ConnectAsync(x.Host, channelId);
             });
-        }
-
-        public override void ChannelInactive(IChannelHandlerContext context)
-        {
-            serverSessionManager.RemoveById(context.Channel.Id.AsShortText());
-            Parallel.ForEach(configuration.BrabchServer, x =>
+            context.Channel.CloseCompletion.ContinueWith((_, state) =>
             {
-                var client = tcpClientManager.GetTcpClient(x.MatchId);
-                client.CloseAsync(context.Channel.Id.AsShortText());
-            });
-            base.ChannelInactive(context);
+                serverSessionManager.RemoveById(state as string);
+                Parallel.ForEach(configuration.BrabchServer, x =>
+                {
+                    var client = tcpClientManager.GetTcpClient(x.MatchId);
+                    client.CloseAsync(context.Channel.Id.AsShortText());
+                });
+            }, context.Channel.Id.AsShortText());
         }
 
         protected override void ChannelRead0(IChannelHandlerContext ctx, byte[] msg)

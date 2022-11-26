@@ -35,7 +35,7 @@ namespace GatewayBranch.Core.Client
         public void RemoveByMatchId(string matchId)
         {
             if (sessions.TryRemove(matchId, out var session))
-                session.Dispose();
+                session.CloseAsync();
         }
     }
     internal interface ITcpClientSessionManager

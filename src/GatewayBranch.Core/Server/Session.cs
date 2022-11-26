@@ -16,7 +16,6 @@ namespace GatewayBranch.Core.Server
 
         public void Dispose()
         {
-            Channel.DisconnectAsync();
             Channel = null;
         }
 
