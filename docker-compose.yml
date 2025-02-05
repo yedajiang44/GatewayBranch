@@ -1,14 +1,18 @@
-version: "3"
 networks:
   gatewaybranch:
     driver: bridge
     name: branch
 services:
   branch-master:
-    image: "yedajiang44/gatewaybranch:latest"
+    image: yedajiang44/gatewaybranch:latest
     container_name: branch-master
     restart: always
     privileged: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+      tags:
+        - yedajiang44/gatewaybranch:0.5
     environment:
       TZ: Asia/Shanghai
       Gateway__TcpPort__0: 80 # 被转发的端口
