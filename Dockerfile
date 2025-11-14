@@ -1,4 +1,21 @@
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+WORKDIR /src
+
+COPY src/GatewayBranch.Application/GatewayBranch.Application.csproj src/GatewayBranch.Application/
+RUN dotnet restore src/GatewayBranch.Application/GatewayBranch.Application.csproj
+
+COPY . .
+
+RUN dotnet publish src/GatewayBranch.Application/GatewayBranch.Application.csproj \
+    -c Release -o /app/publish \
+    --self-contained false \
+    /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
-COPY .output .
-ENTRYPOINT ["./GatewayBranch.Application"]
+
+ENV TZ=Asia/Shanghai
+
+COPY --from=build /app/publish .
+
+ENTRYPOINT ["dotnet", "GatewayBranch.Application.dll"]

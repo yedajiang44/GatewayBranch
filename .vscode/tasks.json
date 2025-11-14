@@ -36,39 +36,6 @@
                 "${workspaceFolder}/src/GatewayBranch.Application/GatewayBranch.Application.csproj"
             ],
             "problemMatcher": "$msCompile"
-        },
-        {
-          "label": "publish docker",
-          "detail": "发布用于创建docker镜像的程序",
-          "hide": true,
-          "command": "dotnet",
-          "type": "process",
-          "args": [
-            "publish",
-            "${workspaceFolder}/src/GatewayBranch.Application/GatewayBranch.Application.csproj",
-            "/p:Configuration=Release",
-            "/p:RuntimeIdentifier=linux-x64",
-            "/p:PublishDir=${workspaceFolder}/.output",
-            "/consoleloggerparameters:NoSummary"
-          ],
-          "problemMatcher": "$msCompile"
-        },
-        {
-          "label": "build docker image",
-          "detail": "编译镜像",
-          "hide": true,
-          "type": "shell",
-          "command": "docker compose build --no-cache",
-          "dependsOn": ["publish docker"],
-          "problemMatcher": []
-        },
-        {
-          "label": "push docker image",
-          "detail": "推送镜像",
-          "type": "shell",
-          "command": "docker compose push",
-          "dependsOn": ["build docker image"],
-          "problemMatcher": []
         }
     ]
 }
