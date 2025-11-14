@@ -1,10 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+
 WORKDIR /src
-
-COPY src/GatewayBranch.Application/GatewayBranch.Application.csproj src/GatewayBranch.Application/
-RUN dotnet restore src/GatewayBranch.Application/GatewayBranch.Application.csproj
-
-COPY . .
 
 RUN dotnet publish src/GatewayBranch.Application/GatewayBranch.Application.csproj \
     -c Release -o /app/publish \
