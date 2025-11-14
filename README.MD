@@ -42,7 +42,7 @@ config appsettings.json
 
 # Run in docker
 
-the docker image [yedajiang44/gatewaybranch](https://github.com/yedajiang44/GatewayBranch/pkgs/container/gatewaybranch)
+the docker image [ghcr.io/yedajiang44/gatewaybranch](https://github.com/yedajiang44/GatewayBranch/pkgs/container/gatewaybranch)
 
 - download `docker-compose.yml`
 - exec `docker-compose up -d`

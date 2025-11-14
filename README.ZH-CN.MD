@@ -40,7 +40,7 @@ services.AddGatewayBranch(hostContext.Configuration);
 
 # 在 docker 中运行
 
-为方便使用，已创建 docker 镜像 [yedajiang44/gatewaybranch](https://github.com/yedajiang44/GatewayBranch/pkgs/container/gatewaybranch)
+为方便使用，已创建 docker 镜像 [ghcr.io/yedajiang44/gatewaybranch](https://github.com/yedajiang44/GatewayBranch/pkgs/container/gatewaybranch)
 
 - 下载 `docker-compose.yml` 文件
 - 执行 `docker-compose up -d`
