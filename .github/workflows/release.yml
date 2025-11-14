@@ -3,7 +3,7 @@ name: Release with SBOM
 on:
   push:
     tags:
-      - "v*.*.*"   # 触发方式：发布版本标签，如 v1.2.3
+      - v*.*.*   # 触发方式：发布版本标签，如 v1.2.3
 
 jobs:
   release:

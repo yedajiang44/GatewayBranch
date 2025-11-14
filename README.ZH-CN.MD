@@ -40,7 +40,7 @@ services.AddGatewayBranch(hostContext.Configuration);
 
 # 在 docker 中运行
 
-为方便使用，已创建 docker 镜像 [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang44/gatewaybranch)
+为方便使用，已创建 docker 镜像 [yedajiang44/gatewaybranch](https://github.com/yedajiang44/GatewayBranch/pkgs/container/gatewaybranch)
 
 - 下载 `docker-compose.yml` 文件
 - 执行 `docker-compose up -d`
@@ -50,9 +50,3 @@ services.AddGatewayBranch(hostContext.Configuration);
 > 如果要映射配置文件，则需要创建相应的文件
 
 - `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json)，具体配置项请参见[GatewayConfiguration](./src/GatewayBranch.Core/Server/GatewayConfiguration.cs)
-- ~~`nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)~~
-
-# 路线图
-
-- 添加 udp 支持
-- 添加连接管理器接口

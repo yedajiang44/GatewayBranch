@@ -42,7 +42,7 @@ config appsettings.json
 
 # Run in docker
 
-the docker image [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang44/gatewaybranch)
+the docker image [yedajiang44/gatewaybranch](https://github.com/yedajiang44/GatewayBranch/pkgs/container/gatewaybranch)
 
 - download `docker-compose.yml`
 - exec `docker-compose up -d`
@@ -51,10 +51,4 @@ the docker image [yedajiang44/gatewaybranch](https://hub.docker.com/r/yedajiang4
 
 > If you need to map configuration file, you need to create the corresponding file
 
-- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json) , see [GatewayConfiguration](./src/GatewayBranch.Core/Server/GatewayConfiguration.cs) for specific gateway configuration items
-- ~~`nlog.config` content see [nlog.config](./src/GatewayBranch.Application/nlog.config)~~
-
-# Roadmap
-
-- add udp
-- add session mananger webapi
+- `appsettings.json` content see [appsettings.json](./src/GatewayBranch.Application/appsettings.json) , see [GatewayConfiguration](./src/GatewayBranch.Core/Server/GatewayConfiguration.cs) for specific gateway 

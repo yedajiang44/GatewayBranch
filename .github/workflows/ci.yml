@@ -2,8 +2,10 @@ name: Build & Publish Docker Image
 
 on:
   push:
-    branches: ["main"]
-    tags: ["v*.*.*"]
+    branches: 
+      - main
+    tags:
+      - v*.*.*
   workflow_dispatch:
 
 jobs:
